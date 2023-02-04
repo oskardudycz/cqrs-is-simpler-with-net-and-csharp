@@ -1,7 +1,7 @@
 ﻿using Ogooreck.API;
+using Warehouse.Api.Requests;
+using Warehouse.Products;
 using static Ogooreck.API.ApiSpecification;
-using Warehouse.Products.GettingProducts;
-using Warehouse.Products.RegisteringProduct;
 using Xunit;
 
 namespace Warehouse.Api.Tests.Products.GettingProducts;
@@ -60,7 +60,6 @@ public class GetProductsTests: IClassFixture<GetProductsFixture>
             .When(GET)
             .Then(BAD_REQUEST);
 }
-
 
 public class GetProductsFixture: ApiSpecification<Program>, IAsyncLifetime
 {

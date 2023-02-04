@@ -11,36 +11,28 @@ WORKDIR /app
 COPY ./.editorconfig ./
 COPY ./Directory.Build.props ./
 COPY ./Core.Build.props ./
-COPY ./Core/Core.csproj ./Core/
-COPY ./Core.Serialization/Core.Serialization.csproj ./Core.Serialization/
-COPY ./Core.Marten/Core.Marten.csproj ./Core.Marten/
-COPY ./Core.WebApi/Core.WebApi.csproj ./Core.WebApi/
-COPY ./Sample/Tickets/Tickets/Tickets.csproj ./Sample/Tickets/Tickets/
-COPY ./Sample/Tickets/Tickets.Api/ ./Sample/Tickets/Tickets.Api/
+COPY ./Final/Warehouse/Warehouse.csproj ./Final/Warehouse/
+COPY ./Final/Warehouse.Api/Warehouse.Api.csproj ./Final/Warehouse.Api/
 
 # Restore nuget packages
-RUN dotnet restore ./Sample/Tickets/Tickets.Api/Tickets.Api.csproj
+RUN dotnet restore ./Final/Warehouse.Api/Warehouse.Api.csproj
 
 # Copy project files
-COPY ./Core ./Core
-COPY ./Core.Serialization ./Core.Serialization
-COPY ./Core.Marten ./Core.Marten
-COPY ./Core.WebApi ./Core.WebApi
-COPY ./Sample/Tickets/Tickets ./Sample/Tickets/Tickets
-COPY ./Sample/Tickets/Tickets.Api ./Sample/Tickets/Tickets.Api
+COPY ./Final/Warehouse ./Final/Warehouse
+COPY ./Final/Warehouse.Api/ ./Final/Warehouse.Api
 
 # Build project with Release configuration
 # and no restore, as we did it already
-RUN dotnet build -c Release --no-restore ./Sample/Tickets/Tickets.Api/Tickets.Api.csproj
+RUN dotnet build -c Release --no-restore ./Final/Warehouse.Api/Warehouse.Api.csproj
 
 ## Test project with Release configuration
 ## and no build, as we did it already
-#RUN dotnet test -c Release --no-build ./Sample/Tickets/Tickets.Api/Tickets.Api.csproj
+#RUN dotnet test -c Release --no-build ./Final/Warehouse.Api/Warehouse.Api.Tests.csproj
 
 
 # Publish project to output folder
 # and no build, as we did it already
-WORKDIR /app/Sample/Tickets/Tickets.Api
+WORKDIR /app/Final/Warehouse.Api
 RUN ls
 RUN dotnet publish -c Release --no-build -o out
 
@@ -57,11 +49,11 @@ WORKDIR /app
 
 # Copy published in previous stage binaries
 # from the `builder` image
-COPY --from=builder /app/Sample/Tickets/Tickets.Api/out .
+COPY --from=builder /app/Final/Warehouse.Api/out .
 
 # Set URL that App will be exposed
 ENV ASPNETCORE_URLS="http://*:5000"
 
 # sets entry point command to automatically
 # run application on `docker run`
-ENTRYPOINT ["dotnet", "Tickets.Api.dll"]
+ENTRYPOINT ["dotnet", "Warehouse.Api.dll"]

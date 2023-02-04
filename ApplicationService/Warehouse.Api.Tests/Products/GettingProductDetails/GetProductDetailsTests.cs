@@ -1,7 +1,7 @@
 ﻿using Ogooreck.API;
+using Warehouse.Api.Requests;
+using Warehouse.Products;
 using static Ogooreck.API.ApiSpecification;
-using Warehouse.Products.GettingProductDetails;
-using Warehouse.Products.RegisteringProduct;
 using Xunit;
 
 namespace Warehouse.Api.Tests.Products.GettingProductDetails;
@@ -32,7 +32,6 @@ public class GetProductDetailsTests: IClassFixture<GetProductDetailsFixture>
             .When(GET)
             .Then(NOT_FOUND);
 }
-
 
 public class GetProductDetailsFixture: ApiSpecification<Program>, IAsyncLifetime
 {

@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{DB50DBC4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{69AC90E1-2A1B-44AF-8E67-E30C0416D54B}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build.dotnet.testreport.yml = .github\workflows\build.dotnet.testreport.yml
 		.github\workflows\build.dotnet.yml = .github\workflows\build.dotnet.yml
 		.github\workflows\publish.docker.yml = .github\workflows\publish.docker.yml
 	EndProjectSection

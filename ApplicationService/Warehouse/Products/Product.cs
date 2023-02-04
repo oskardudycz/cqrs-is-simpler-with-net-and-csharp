@@ -2,7 +2,7 @@
 
 namespace Warehouse.Products;
 
-internal class Product
+public class Product
 {
     public Guid Id { get; set; }
 

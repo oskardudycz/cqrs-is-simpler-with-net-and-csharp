@@ -5,19 +5,18 @@ using Warehouse.Api.Middlewares.ExceptionHandling;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddRouting()
     .AddWarehouseServices()
     .AddEndpointsApiExplorer()
-    .AddSwaggerGen();
+    .AddSwaggerGen()
+    .AddControllers();
 
 var app = builder.Build();
 
 app.UseExceptionHandlingMiddleware()
     .UseRouting()
     .UseEndpoints(endpoints =>
-    {
-        endpoints.UseWarehouseEndpoints();
-    })
+        endpoints.MapControllers()
+    )
     .ConfigureWarehouse()
     .UseSwagger()
     .UseSwaggerUI();

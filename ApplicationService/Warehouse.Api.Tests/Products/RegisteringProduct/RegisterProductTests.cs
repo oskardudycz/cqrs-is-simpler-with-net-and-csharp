@@ -1,6 +1,6 @@
 ﻿using Ogooreck.API;
+using Warehouse.Api.Requests;
 using static Ogooreck.API.ApiSpecification;
-using Warehouse.Products.RegisteringProduct;
 using Xunit;
 
 namespace Warehouse.Api.Tests.Products.RegisteringProduct;
