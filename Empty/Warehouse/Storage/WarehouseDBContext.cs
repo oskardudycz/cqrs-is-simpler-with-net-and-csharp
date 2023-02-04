@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using Warehouse.Products;
+//using Warehouse.Products;
 
 namespace Warehouse.Storage;
 
@@ -15,7 +15,7 @@ public class WarehouseDBContext: DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.SetupProductsModel();
+        //modelBuilder.SetupProductsModel();
     }
 }
 

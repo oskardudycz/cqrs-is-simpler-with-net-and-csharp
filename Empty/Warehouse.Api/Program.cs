@@ -6,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddRouting()
-    .AddWarehouseServices()
     .AddEndpointsApiExplorer()
     .AddSwaggerGen();
 
@@ -16,9 +15,8 @@ app.UseExceptionHandlingMiddleware()
     .UseRouting()
     .UseEndpoints(endpoints =>
     {
-        endpoints.UseWarehouseEndpoints();
     })
-    .ConfigureWarehouse()
+    //.ConfigureWarehouse()
     .UseSwagger()
     .UseSwaggerUI();
 
