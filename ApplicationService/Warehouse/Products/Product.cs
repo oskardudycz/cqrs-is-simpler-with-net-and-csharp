@@ -20,7 +20,7 @@ internal record Product
     /// <summary>
     /// Optional Product description
     /// </summary>
-    public string? Description { get; set; }
+    public string? Description { get; init; }
 
     // Note: this is needed because we're using SKU DTO.
     // It would work if we had just primitives
@@ -28,7 +28,7 @@ internal record Product
     private Product() { }
 
     [SetsRequiredMembers]
-    public Product(ProductId id, SKU sku, string name, string? description): this()
+    public Product(ProductId id, SKU sku, string name, string? description)
     {
         Id = id;
         Sku = sku;
