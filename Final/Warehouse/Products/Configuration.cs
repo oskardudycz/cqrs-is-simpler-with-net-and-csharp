@@ -21,11 +21,6 @@ internal static class Configuration
             {
                 var dbContext = s.GetRequiredService<WarehouseDBContext>();
                 return new HandleRegisterProduct(dbContext.AddAndSave, dbContext.ProductWithSKUExists);
-            })
-            .AddQueryHandler<GetProducts, IReadOnlyList<ProductListItem>, HandleGetProducts>(s =>
-            {
-                var dbContext = s.GetRequiredService<WarehouseDBContext>();
-                return new HandleGetProducts(dbContext.Set<Product>().AsNoTracking());
             });
 
 
