@@ -17,7 +17,7 @@ public class ProductsQueriesController: Controller
         [FromQuery] GetProductsRequest request,
         CancellationToken ct
     ) =>
-        queryService.Handle(GetProducts.Create(request.Filter, request.Page, request.PageSize), ct);
+        queryService.Handle(GetProducts.From(request.Filter, request.Page, request.PageSize), ct);
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct)

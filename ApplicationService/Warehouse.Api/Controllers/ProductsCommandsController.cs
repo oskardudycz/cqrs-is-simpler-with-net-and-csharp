@@ -18,7 +18,7 @@ public class ProductsCommandsController: Controller
         var (sku, name, description) = request;
         var productId = Guid.NewGuid();
 
-        var command = RegisterProduct.Create(productId, sku, name, description);
+        var command = RegisterProduct.From(productId, sku, name, description);
 
         await productsApplicationService.Handle(command, ct);
 

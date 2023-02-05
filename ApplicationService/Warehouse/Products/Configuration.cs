@@ -22,7 +22,20 @@ internal static class Configuration
 
     public static void SetupProductsModel(this ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Product>()
-            .OwnsOne(p => p.Sku);
+        var product = modelBuilder.Entity<Product>();
+
+        product
+            .Property(e => e.Id)
+            .HasConversion(
+                typed => typed.Value,
+                plain => new ProductId(plain)
+            );
+
+        product
+            .Property(e => e.Sku)
+            .HasConversion(
+                typed => typed.Value,
+                plain => new SKU(plain)
+            );
     }
 }

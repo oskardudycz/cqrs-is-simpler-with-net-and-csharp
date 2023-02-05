@@ -1,34 +1,27 @@
-﻿using Warehouse.Products.Primitives;
+﻿using Warehouse.Core;
 
 namespace Warehouse.Products;
 
-public record RegisterProduct
+public record RegisterProduct(
+    ProductId ProductId,
+    SKU SKU,
+    string Name,
+    string? Description
+)
 {
-    private RegisterProduct(Guid productId, SKU sku, string name, string? description)
-    {
-        ProductId = productId;
-        SKU = sku;
-        Name = name;
-        Description = description;
-    }
-
-    public Guid ProductId { get; }
-
-    public SKU SKU { get; }
-
-    public string Name { get; }
-
-    public string? Description { get; }
-
-    public static RegisterProduct Create(Guid? id, string? sku, string? name, string? description)
-    {
-        if (!id.HasValue || id == Guid.Empty) throw new ArgumentOutOfRangeException(nameof(id));
-        if (string.IsNullOrEmpty(sku)) throw new ArgumentOutOfRangeException(nameof(sku));
-        if (string.IsNullOrEmpty(name)) throw new ArgumentOutOfRangeException(nameof(name));
-        if (description is "") throw new ArgumentOutOfRangeException(nameof(name));
-
-        return new RegisterProduct(id.Value, SKU.Create(sku), name, description);
-    }
+    public static RegisterProduct From(Guid? id, string? sku, string? name, string? description) =>
+        new(
+            ProductId.From(id),
+            SKU.From(sku),
+            name.AssertNotEmpty(),
+            description.AssertNullOrNotEmpty()
+        );
 }
 
-
+public record DeactivateProduct(
+    ProductId ProductId
+)
+{
+    public static DeactivateProduct From(Guid? id) =>
+        new(ProductId.From(id));
+}

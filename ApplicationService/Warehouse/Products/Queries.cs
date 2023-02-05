@@ -1,45 +1,18 @@
-﻿using Warehouse.Core.Primitives;
+﻿using Warehouse.Core;
 
 namespace Warehouse.Products;
 
-public record GetProducts
+public record GetProducts(string? Filter, int Page, int PageSize)
 {
     private const int DefaultPage = 1;
     private const int DefaultPageSize = 10;
 
-    private GetProducts(string? filter, int page, int pageSize)
-    {
-        Filter = filter;
-        Page = page;
-        PageSize = pageSize;
-    }
-
-    public string? Filter { get; }
-
-    public int Page { get; }
-
-    public int PageSize { get; }
-
-    public static GetProducts Create(string? filter, int? page, int? pageSize)
-    {
-        page ??= DefaultPage;
-        pageSize ??= DefaultPageSize;
-
-        if (page <= 0)
-            throw new ArgumentOutOfRangeException(nameof(page));
-
-        if (pageSize <= 0)
-            throw new ArgumentOutOfRangeException(nameof(pageSize));
-
-        return new GetProducts(filter, page.Value, pageSize.Value);
-    }
-
-    public void Deconstruct(out string? filter, out int page, out int pageSize)
-    {
-        filter = Filter;
-        page = Page;
-        pageSize = PageSize;
-    }
+    public static GetProducts From(string? filter, int? page, int? pageSize) =>
+        new(
+            filter,
+            page.GetValueOrDefault(DefaultPage).AssertPositive(),
+            pageSize.GetValueOrDefault(DefaultPageSize).AssertPositive()
+        );
 }
 
 public record ProductListItem(
@@ -48,19 +21,10 @@ public record ProductListItem(
     string Name
 );
 
-public record GetProductDetails
+public record GetProductDetails(ProductId ProductId)
 {
-    private GetProductDetails(Guid productId)
-    {
-        ProductId = productId;
-    }
-
-    public Guid ProductId { get; }
-
-    public static GetProductDetails Create(Guid productId)
-    {
-        return new GetProductDetails(productId.AssertNotEmpty(nameof(productId)));
-    }
+    public static GetProductDetails Create(Guid productId) =>
+        new(ProductId.From(productId));
 }
 
 public record ProductDetails(
@@ -69,7 +33,3 @@ public record ProductDetails(
     string Name,
     string? Description
 );
-
-
-
-

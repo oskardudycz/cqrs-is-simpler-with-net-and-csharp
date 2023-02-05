@@ -28,7 +28,7 @@ public class ProductsQueryService
         return await filteredProducts
             .Skip(pageSize * (page - 1))
             .Take(pageSize)
-            .Select(p => new ProductListItem(p.Id, p.Sku.Value, p.Name))
+            .Select(p => new ProductListItem(p.Id.Value, p.Sku.Value, p.Name))
             .ToListAsync(ct);
     }
 
@@ -36,17 +36,16 @@ public class ProductsQueryService
     {
         // await is needed because of https://github.com/dotnet/efcore/issues/21793#issuecomment-667096367
         var product = await products
-            .SingleOrDefaultAsync(p => p.Id == query.ProductId, ct);
+            .SingleOrDefaultAsync(p => p.Id.Value == query.ProductId.Value, ct);
 
         if (product == null)
             return null;
 
         return new ProductDetails(
-            product.Id,
+            product.Id.Value,
             product.Sku.Value,
             product.Name,
             product.Description
         );
     }
 }
-

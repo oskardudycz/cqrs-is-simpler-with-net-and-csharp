@@ -3,7 +3,7 @@ using Warehouse.Products.Primitives;
 
 namespace Warehouse.Products.RegisteringProduct;
 
-internal class HandleRegisterProduct : ICommandHandler<RegisterProduct>
+internal class HandleRegisterProduct: ICommandHandler<RegisterProduct>
 {
     private readonly Func<Product, CancellationToken, ValueTask> addProduct;
     private readonly Func<SKU, CancellationToken, ValueTask<bool>> productWithSKUExists;
@@ -34,24 +34,13 @@ internal class HandleRegisterProduct : ICommandHandler<RegisterProduct>
     }
 }
 
-public record RegisterProduct
+public record RegisterProduct(
+    Guid ProductId,
+    SKU SKU,
+    string Name,
+    string? Description
+)
 {
-    public Guid ProductId { get;}
-
-    public SKU SKU { get; }
-
-    public string Name { get; }
-
-    public string? Description { get; }
-
-    private RegisterProduct(Guid productId, SKU sku, string name, string? description)
-    {
-        ProductId = productId;
-        SKU = sku;
-        Name = name;
-        Description = description;
-    }
-
     public static RegisterProduct Create(Guid? id, string? sku, string? name, string? description)
     {
         if (!id.HasValue || id == Guid.Empty) throw new ArgumentOutOfRangeException(nameof(id));

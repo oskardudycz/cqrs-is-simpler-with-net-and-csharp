@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Warehouse.Storage;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Warehouse.Products.Primitives;
 using Warehouse.Storage;
 
 namespace Warehouse.Products;

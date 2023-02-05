@@ -1,6 +1,4 @@
-﻿using Warehouse.Products.Primitives;
-
-namespace Warehouse.Products;
+﻿namespace Warehouse.Products;
 
 public class ProductsApplicationService
 {
@@ -32,4 +30,3 @@ public class ProductsApplicationService
         await addProduct(product, ct);
     }
 }
-
