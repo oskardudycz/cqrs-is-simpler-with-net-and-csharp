@@ -8,7 +8,7 @@ public readonly record struct ProductId(Guid Value)
         new(productId.AssertNotEmpty());
 }
 
-public readonly record struct SKU(string Value)
+public record SKU(string Value)
 {
     public static SKU From(string? sku) =>
         new(sku.AssertMatchesRegex("[A-Z]{2,4}[0-9]{4,18}"));

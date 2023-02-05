@@ -10,8 +10,8 @@ public record GetProducts(string? Filter, int Page, int PageSize)
     public static GetProducts From(string? filter, int? page, int? pageSize) =>
         new(
             filter,
-            page.GetValueOrDefault(DefaultPage).AssertPositive(),
-            pageSize.GetValueOrDefault(DefaultPageSize).AssertPositive()
+            (page ?? DefaultPage).AssertPositive(),
+            (pageSize ?? DefaultPageSize).AssertPositive()
         );
 }
 

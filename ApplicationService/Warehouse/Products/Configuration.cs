@@ -32,10 +32,6 @@ internal static class Configuration
             );
 
         product
-            .Property(e => e.Sku)
-            .HasConversion(
-                typed => typed.Value,
-                plain => new SKU(plain)
-            );
+            .OwnsOne(e => e.Sku);
     }
 }

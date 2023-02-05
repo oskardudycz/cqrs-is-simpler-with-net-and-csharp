@@ -24,19 +24,22 @@ public class ProductsQueryService
                     p.Description!.Contains(query.Filter!)
                 );
 
-        // await is needed because of https://github.com/dotnet/efcore/issues/21793#issuecomment-667096367
-        return await filteredProducts
+        var result = await filteredProducts
             .Skip(pageSize * (page - 1))
             .Take(pageSize)
-            .Select(p => new ProductListItem(p.Id.Value, p.Sku.Value, p.Name))
             .ToListAsync(ct);
+
+        var sth = result
+            .Select(p => new ProductListItem(p.Id.Value, p.Sku.Value, p.Name))
+            .ToList();
+
+        return sth;
     }
 
     public async ValueTask<ProductDetails?> Handle(GetProductDetails query, CancellationToken ct)
     {
-        // await is needed because of https://github.com/dotnet/efcore/issues/21793#issuecomment-667096367
         var product = await products
-            .SingleOrDefaultAsync(p => p.Id.Value == query.ProductId.Value, ct);
+            .SingleOrDefaultAsync(p => p.Id == query.ProductId, ct);
 
         if (product == null)
             return null;
