@@ -6,10 +6,11 @@ services:
     postgres:
         image: postgres:15.1-alpine
         container_name: postgres
-        environment:
-            POSTGRES_PASSWORD: Password12!
         ports:
             - "5432:5432"
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_PASSWORD=Password12!
         networks:
             - pg_network
 

@@ -5,3 +5,9 @@ public record RegisterProductRequest(
     string? Name,
     string? Description
 );
+
+public record GetProductsRequest(
+    string? Filter,
+    int? Page,
+    int? PageSize
+);

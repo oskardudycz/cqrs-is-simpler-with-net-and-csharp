@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Warehouse.Api.Requests;
 using Warehouse.Products;
 
 namespace Warehouse.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/products")]
 public class ProductsQueriesController: Controller
 {
     private readonly ProductsQueryService queryService;
@@ -13,12 +14,10 @@ public class ProductsQueriesController: Controller
 
     [HttpGet]
     public ValueTask<IReadOnlyList<ProductListItem>> Get(
-        [FromQuery] string? filter,
-        [FromQuery] int? page,
-        [FromQuery] int? pageSize,
+        [FromQuery] GetProductsRequest request,
         CancellationToken ct
     ) =>
-        queryService.Handle(GetProducts.Create(filter, page, pageSize), ct);
+        queryService.Handle(GetProducts.Create(request.Filter, request.Page, request.PageSize), ct);
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct)

@@ -4,7 +4,7 @@ using Warehouse.Products;
 
 namespace Warehouse.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/products")]
 public class ProductsCommandsController: Controller
 {
     private readonly ProductsApplicationService productsApplicationService;

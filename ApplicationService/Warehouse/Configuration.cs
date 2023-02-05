@@ -12,7 +12,8 @@ public static class WarehouseConfiguration
     {
         return services
             .AddDbContext<WarehouseDBContext>(
-                options => options.UseNpgsql("name=ConnectionStrings:WarehouseDB"))
+                options => options.UseNpgsql(
+                    "PORT = 5432; HOST = 127.0.0.1; TIMEOUT = 15; POOLING = True; MINPOOLSIZE = 1; MAXPOOLSIZE = 100; COMMANDTIMEOUT = 20; DATABASE = 'postgres'; PASSWORD = 'Password12!'; USER ID = 'postgres'; searchpath = 'public'"))
             .AddProductServices();
     }
 
@@ -21,10 +22,13 @@ public static class WarehouseConfiguration
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
         if (environment == "Development")
-            app.ApplicationServices.CreateScope().ServiceProvider
-                .GetRequiredService<WarehouseDBContext>().Database.Migrate();
+        {
+            var dbContext = app.ApplicationServices.CreateScope().ServiceProvider
+                .GetRequiredService<WarehouseDBContext>();
+
+            dbContext.Database.Migrate();
+        }
 
         return app;
     }
 }
-

@@ -1,4 +1,3 @@
-using Core.WebApi.Middlewares.ExceptionHandling;
 using Warehouse;
 using Warehouse.Api.Middlewares.ExceptionHandling;
 
