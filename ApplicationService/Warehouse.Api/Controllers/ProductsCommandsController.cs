@@ -13,7 +13,7 @@ public class ProductsCommandsController: Controller
         this.productsApplicationService = productsApplicationService;
 
     [HttpPost]
-    public async Task<IActionResult> Register(RegisterProductRequest request, CancellationToken ct)
+    public async Task<IActionResult> Register([FromBody] RegisterProductRequest request, CancellationToken ct)
     {
         var (sku, name, description) = request;
         var productId = Guid.NewGuid();
