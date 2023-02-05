@@ -13,9 +13,8 @@ public static class QueryHandlerConfiguration
     public static IServiceCollection AddQueryHandler<T, TResult, TQueryHandler>(
         this IServiceCollection services,
         Func<IServiceProvider, TQueryHandler>? configure = null
-    ) where TQueryHandler: class, IQueryHandler<T, TResult>
+    ) where TQueryHandler : class, IQueryHandler<T, TResult>
     {
-
         if (configure == null)
         {
             services.AddTransient<TQueryHandler, TQueryHandler>();
@@ -29,11 +28,4 @@ public static class QueryHandlerConfiguration
 
         return services;
     }
-
-    public static IQueryHandler<T, TResult> GetQueryHandler<T, TResult>(this HttpContext context)
-        => context.RequestServices.GetRequiredService<IQueryHandler<T, TResult>>();
-
-    public static ValueTask<TResult> SendQuery<T, TResult>(this HttpContext context, T query)
-        => context.GetQueryHandler<T, TResult>()
-            .Handle(query, context.RequestAborted);
 }

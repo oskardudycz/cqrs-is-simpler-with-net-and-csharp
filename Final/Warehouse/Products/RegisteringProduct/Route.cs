@@ -16,19 +16,23 @@ internal static class Route
 {
     internal static IEndpointRouteBuilder UseRegisterProductEndpoint(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("api/products/", async (HttpContext context, RegisterProductRequest request) =>
-        {
-            var (sku, name, description) = request;
-            var productId = Guid.NewGuid();
-
-            var command = RegisterProduct.From(productId, sku, name, description);
-
-            await context.SendCommand(command);
-
-            return Created($"/api/products/{productId}", productId);
-        });
-
+        endpoints.MapPost("api/products/", Handle);
 
         return endpoints;
+    }
+
+    private static async Task<IResult> Handle(
+        ICommandHandler<RegisterProduct> commandHandler,
+        RegisterProductRequest request,
+        CancellationToken ct)
+    {
+        var (sku, name, description) = request;
+        var productId = Guid.NewGuid();
+
+        var command = RegisterProduct.From(productId, sku, name, description);
+
+        await commandHandler.Handle(command, ct);
+
+        return Created($"/api/products/{productId}", productId);
     }
 }

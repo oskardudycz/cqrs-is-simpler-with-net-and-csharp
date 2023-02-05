@@ -3,7 +3,7 @@ using Warehouse.Products.Primitives;
 
 namespace Warehouse.Products;
 
-internal record Product
+public record Product
 {
     public required ProductId Id { get; init; }
 

@@ -13,9 +13,8 @@ public static class CommandHandlerConfiguration
     public static IServiceCollection AddCommandHandler<T, TCommandHandler>(
         this IServiceCollection services,
         Func<IServiceProvider, TCommandHandler>? configure = null
-    ) where TCommandHandler: class, ICommandHandler<T>
+    ) where TCommandHandler : class, ICommandHandler<T>
     {
-
         if (configure == null)
         {
             services.AddTransient<TCommandHandler, TCommandHandler>();
@@ -29,12 +28,4 @@ public static class CommandHandlerConfiguration
 
         return services;
     }
-
-    public static ICommandHandler<T> GetCommandHandler<T>(this HttpContext context)
-        => context.RequestServices.GetRequiredService<ICommandHandler<T>>();
-
-
-    public static Task SendCommand<T>(this HttpContext context, T command)
-        => context.GetCommandHandler<T>()
-            .Handle(command, context.RequestAborted);
 }
