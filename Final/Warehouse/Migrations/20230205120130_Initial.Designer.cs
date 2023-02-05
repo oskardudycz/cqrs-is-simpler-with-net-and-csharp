@@ -12,7 +12,7 @@ using Warehouse.Storage;
 namespace Warehouse.Migrations
 {
     [DbContext(typeof(WarehouseDBContext))]
-    [Migration("20230205064818_Initial")]
+    [Migration("20230205120130_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,7 +28,6 @@ namespace Warehouse.Migrations
             modelBuilder.Entity("Warehouse.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
@@ -45,7 +44,7 @@ namespace Warehouse.Migrations
 
             modelBuilder.Entity("Warehouse.Products.Product", b =>
                 {
-                    b.OwnsOne("Warehouse.Products.Primitives.SKU", "Sku", b1 =>
+                    b.OwnsOne("Warehouse.Products.SKU", "Sku", b1 =>
                         {
                             b1.Property<Guid>("ProductId")
                                 .HasColumnType("uuid");

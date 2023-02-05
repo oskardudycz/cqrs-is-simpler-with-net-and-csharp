@@ -35,19 +35,17 @@ internal class HandleRegisterProduct: ICommandHandler<RegisterProduct>
 }
 
 public record RegisterProduct(
-    Guid ProductId,
+    ProductId ProductId,
     SKU SKU,
     string Name,
     string? Description
 )
 {
-    public static RegisterProduct Create(Guid? id, string? sku, string? name, string? description)
-    {
-        if (!id.HasValue || id == Guid.Empty) throw new ArgumentOutOfRangeException(nameof(id));
-        if (string.IsNullOrEmpty(sku)) throw new ArgumentOutOfRangeException(nameof(sku));
-        if (string.IsNullOrEmpty(name)) throw new ArgumentOutOfRangeException(nameof(name));
-        if (description is "") throw new ArgumentOutOfRangeException(nameof(name));
-
-        return new RegisterProduct(id.Value, SKU.Create(sku), name, description);
-    }
+    public static RegisterProduct From(Guid? id, string sku, string name, string? description) =>
+        new(
+            ProductId.From(id),
+            SKU.From(sku),
+            name.AssertNotEmpty(),
+            description.AssertNullOrNotEmpty()
+        );
 }

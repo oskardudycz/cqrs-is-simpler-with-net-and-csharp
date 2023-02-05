@@ -25,7 +25,6 @@ namespace Warehouse.Migrations
             modelBuilder.Entity("Warehouse.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
@@ -42,7 +41,7 @@ namespace Warehouse.Migrations
 
             modelBuilder.Entity("Warehouse.Products.Product", b =>
                 {
-                    b.OwnsOne("Warehouse.Products.Primitives.SKU", "Sku", b1 =>
+                    b.OwnsOne("Warehouse.Products.SKU", "Sku", b1 =>
                         {
                             b1.Property<Guid>("ProductId")
                                 .HasColumnType("uuid");

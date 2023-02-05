@@ -3,7 +3,7 @@ using Warehouse.Core.Queries;
 
 namespace Warehouse.Products.GettingProducts;
 
-internal class HandleGetProducts : IQueryHandler<GetProducts, IReadOnlyList<ProductListItem>>
+internal class HandleGetProducts: IQueryHandler<GetProducts, IReadOnlyList<ProductListItem>>
 {
     private readonly IQueryable<Product> products;
 
@@ -25,53 +25,25 @@ internal class HandleGetProducts : IQueryHandler<GetProducts, IReadOnlyList<Prod
                     p.Description!.Contains(query.Filter!)
                 );
 
-        // await is needed because of https://github.com/dotnet/efcore/issues/21793#issuecomment-667096367
         return await filteredProducts
             .Skip(pageSize * (page - 1))
             .Take(pageSize)
-            .Select(p => new ProductListItem(p.Id, p.Sku.Value, p.Name))
+            .Select(p => new ProductListItem(p.Id.Value, p.Sku.Value, p.Name))
             .ToListAsync(ct);
     }
 }
 
-public record GetProducts
+public record GetProducts(string? Filter, int Page, int PageSize)
 {
     private const int DefaultPage = 1;
     private const int DefaultPageSize = 10;
 
-    public string? Filter { get; }
-
-    public int Page { get; }
-
-    public int PageSize { get; }
-
-    private GetProducts(string? filter, int page, int pageSize)
-    {
-        Filter = filter;
-        Page = page;
-        PageSize = pageSize;
-    }
-
-    public static GetProducts Create(string? filter, int? page, int? pageSize)
-    {
-        page ??= DefaultPage;
-        pageSize ??= DefaultPageSize;
-
-        if (page <= 0)
-            throw new ArgumentOutOfRangeException(nameof(page));
-
-        if (pageSize <= 0)
-            throw new ArgumentOutOfRangeException(nameof(pageSize));
-
-        return new (filter, page.Value, pageSize.Value);
-    }
-
-    public void Deconstruct(out string? filter, out int page, out int pageSize)
-    {
-        filter = Filter;
-        page = Page;
-        pageSize = PageSize;
-    }
+    public static GetProducts From(string? filter, int? page, int? pageSize) =>
+        new(
+            filter,
+            (page ?? DefaultPage).AssertPositive(),
+            (pageSize ?? DefaultPageSize).AssertPositive()
+        );
 }
 
 public record ProductListItem(

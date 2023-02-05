@@ -7,8 +7,8 @@ using static Microsoft.AspNetCore.Http.Results;
 namespace Warehouse.Products.RegisteringProduct;
 
 public record RegisterProductRequest(
-    string? SKU,
-    string? Name,
+    string SKU,
+    string Name,
     string? Description
 );
 
@@ -21,7 +21,7 @@ internal static class Route
             var (sku, name, description) = request;
             var productId = Guid.NewGuid();
 
-            var command = RegisterProduct.Create(productId, sku, name, description);
+            var command = RegisterProduct.From(productId, sku, name, description);
 
             await context.SendCommand(command);
 

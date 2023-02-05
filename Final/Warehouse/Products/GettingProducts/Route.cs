@@ -11,15 +11,16 @@ public static class Route
 {
     internal static IEndpointRouteBuilder UseGetProductsEndpoint(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/api/products", async (HttpContext context, [FromQuery]string? filter, [FromQuery]int? page, [FromQuery]int? pageSize) =>
-        {
-            var query = GetProducts.Create(filter, page, pageSize);
+        endpoints.MapGet("/api/products",
+            async (HttpContext context, [FromQuery] string? filter, [FromQuery] int? page, [FromQuery] int? pageSize) =>
+            {
+                var query = GetProducts.From(filter, page, pageSize);
 
-            var result = await context
-                .SendQuery<GetProducts, IReadOnlyList<ProductListItem>>(query);
+                var result = await context
+                    .SendQuery<GetProducts, IReadOnlyList<ProductListItem>>(query);
 
-            return Ok(result);
-        });
+                return Ok(result);
+            });
         return endpoints;
     }
 }

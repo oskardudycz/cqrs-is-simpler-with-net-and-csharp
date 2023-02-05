@@ -67,8 +67,8 @@ public class RegisterProductTests: IClassFixture<WarehouseTestWebApplicationFact
 
     public static TheoryData<RegisterProductRequest> InvalidRequests = new()
     {
-        new RegisterProductRequest(null, ValidName, ValidDescription),
+        new RegisterProductRequest(null!, ValidName, ValidDescription),
         new RegisterProductRequest("INVALID_SKU", ValidName, ValidDescription),
-        new RegisterProductRequest(ValidSKU, null, ValidDescription),
+        new RegisterProductRequest(ValidSKU, null!, ValidDescription),
     };
 }

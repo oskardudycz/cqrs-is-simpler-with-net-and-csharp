@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Warehouse.Core.Primitives;
 using Warehouse.Core.Queries;
+using Warehouse.Products.Primitives;
 
 namespace Warehouse.Products.GettingProductDetails;
 
@@ -15,7 +16,6 @@ internal class HandleGetProductDetails: IQueryHandler<GetProductDetails, Product
 
     public async ValueTask<ProductDetails?> Handle(GetProductDetails query, CancellationToken ct)
     {
-        // await is needed because of https://github.com/dotnet/efcore/issues/21793#issuecomment-667096367
         var product = await products
             .SingleOrDefaultAsync(p => p.Id == query.ProductId, ct);
 
@@ -23,7 +23,7 @@ internal class HandleGetProductDetails: IQueryHandler<GetProductDetails, Product
             return null;
 
         return new ProductDetails(
-            product.Id,
+            product.Id.Value,
             product.Sku.Value,
             product.Name,
             product.Description
@@ -31,17 +31,10 @@ internal class HandleGetProductDetails: IQueryHandler<GetProductDetails, Product
     }
 }
 
-public record GetProductDetails
+public record GetProductDetails(ProductId ProductId)
 {
-    public Guid ProductId { get;}
-
-    private GetProductDetails(Guid productId)
-    {
-        ProductId = productId;
-    }
-
-    public static GetProductDetails Create(Guid productId)
-        => new(productId.AssertNotEmpty(nameof(productId)));
+    public static GetProductDetails Create(Guid productId) =>
+        new(ProductId.From(productId));
 }
 
 public record ProductDetails(

@@ -9,7 +9,7 @@ public record RegisterProduct(
     string? Description
 )
 {
-    public static RegisterProduct From(Guid? id, string? sku, string? name, string? description) =>
+    public static RegisterProduct From(Guid id, string sku, string name, string? description) =>
         new(
             ProductId.From(id),
             SKU.From(sku),

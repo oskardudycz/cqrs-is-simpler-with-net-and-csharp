@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Warehouse.Storage;
@@ -11,9 +12,11 @@ using Warehouse.Storage;
 namespace Warehouse.Migrations
 {
     [DbContext(typeof(WarehouseDBContext))]
-    partial class WarehouseDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230205120130_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +28,6 @@ namespace Warehouse.Migrations
             modelBuilder.Entity("Warehouse.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
@@ -42,7 +44,7 @@ namespace Warehouse.Migrations
 
             modelBuilder.Entity("Warehouse.Products.Product", b =>
                 {
-                    b.OwnsOne("Warehouse.Products.Primitives.SKU", "Sku", b1 =>
+                    b.OwnsOne("Warehouse.Products.SKU", "Sku", b1 =>
                         {
                             b1.Property<Guid>("ProductId")
                                 .HasColumnType("uuid");
