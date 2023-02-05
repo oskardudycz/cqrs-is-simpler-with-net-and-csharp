@@ -6,10 +6,8 @@ public class ProductsQueryService
 {
     private readonly IQueryable<Product> products;
 
-    public ProductsQueryService(IQueryable<Product> products)
-    {
+    internal ProductsQueryService(IQueryable<Product> products) =>
         this.products = products;
-    }
 
     public async ValueTask<IReadOnlyList<ProductListItem>> Handle(GetProducts query, CancellationToken ct)
     {

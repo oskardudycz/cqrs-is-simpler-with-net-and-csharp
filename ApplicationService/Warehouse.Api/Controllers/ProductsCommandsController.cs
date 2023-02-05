@@ -7,10 +7,10 @@ namespace Warehouse.Controllers;
 [Route("api/products")]
 public class ProductsCommandsController: Controller
 {
-    private readonly ProductsApplicationService productsApplicationService;
+    private readonly ProductsCommandService productsCommandService;
 
-    public ProductsCommandsController(ProductsApplicationService productsApplicationService) =>
-        this.productsApplicationService = productsApplicationService;
+    public ProductsCommandsController(ProductsCommandService productsCommandService) =>
+        this.productsCommandService = productsCommandService;
 
     [HttpPost]
     public async Task<IActionResult> Register([FromBody] RegisterProductRequest request, CancellationToken ct)
@@ -20,7 +20,7 @@ public class ProductsCommandsController: Controller
 
         var command = RegisterProduct.From(productId, sku, name, description);
 
-        await productsApplicationService.Handle(command, ct);
+        await productsCommandService.Handle(command, ct);
 
         return Created($"api/products/{productId}", productId);
     }

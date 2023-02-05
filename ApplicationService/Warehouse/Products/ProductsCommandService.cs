@@ -1,11 +1,11 @@
 ﻿namespace Warehouse.Products;
 
-public class ProductsApplicationService
+public class ProductsCommandService
 {
     private readonly Func<Product, CancellationToken, ValueTask> addProduct;
     private readonly Func<SKU, CancellationToken, ValueTask<bool>> productWithSKUExists;
 
-    public ProductsApplicationService(
+    internal ProductsCommandService(
         Func<Product, CancellationToken, ValueTask> addProduct,
         Func<SKU, CancellationToken, ValueTask<bool>> productWithSKUExists
     )

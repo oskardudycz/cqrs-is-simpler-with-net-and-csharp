@@ -9,10 +9,10 @@ internal static class Configuration
 {
     public static IServiceCollection AddProductServices(this IServiceCollection services) =>
         services
-            .AddScoped<ProductsApplicationService>(s =>
+            .AddScoped<ProductsCommandService>(s =>
             {
                 var dbContext = s.GetRequiredService<WarehouseDBContext>();
-                return new ProductsApplicationService(dbContext.AddAndSave, dbContext.ProductWithSKUExists);
+                return new ProductsCommandService(dbContext.AddAndSave, dbContext.ProductWithSKUExists);
             })
             .AddScoped<ProductsQueryService>(s =>
             {

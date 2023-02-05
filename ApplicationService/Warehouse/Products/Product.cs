@@ -1,16 +1,38 @@
-﻿namespace Warehouse.Products;
+﻿using System.Diagnostics.CodeAnalysis;
 
-/// <summary>
-///
-/// </summary>
-/// <param name="Id"></param>
-/// <param name="Sku">The Stock Keeping Unit (SKU), i.e. a merchant-specific identifier for a product or service, or the product to which the offer refers.</param>
-/// <param name="Name">Product Name</param>
-/// <param name="Description">Optional Product description</param>
-public record Product(
-    ProductId Id,
-    SKU Sku,
-    string Name,
-    string? Description)
+namespace Warehouse.Products;
+
+internal record Product
 {
+    public required ProductId Id { get; init; }
+
+    /// <summary>
+    /// The Stock Keeping Unit (SKU), i.e. a merchant-specific identifier for a product or service, or the product to which the offer refers.
+    /// </summary>
+    /// <returns></returns>
+    public required SKU Sku { get; init; }
+
+    /// <summary>
+    /// Product Name
+    /// </summary>
+    public required string Name { get; init; }
+
+    /// <summary>
+    /// Optional Product description
+    /// </summary>
+    public string? Description { get; set; }
+
+    // Note: this is needed because we're using SKU DTO.
+    // It would work if we had just primitives
+    // Should be fixed in .NET 6
+    private Product() { }
+
+    [SetsRequiredMembers]
+    public Product(ProductId id, SKU sku, string name, string? description): this()
+    {
+        Id = id;
+        Sku = sku;
+        Name = name;
+        Description = description;
+    }
 }
