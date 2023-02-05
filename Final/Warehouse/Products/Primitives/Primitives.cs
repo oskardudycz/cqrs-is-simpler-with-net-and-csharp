@@ -1,6 +1,4 @@
-﻿using Warehouse.Core;
-
-namespace Warehouse.Products.Primitives;
+﻿namespace Warehouse.Products.Primitives;
 
 public readonly record struct ProductId(Guid Value)
 {

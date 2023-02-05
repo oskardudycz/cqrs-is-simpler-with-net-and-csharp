@@ -1,23 +1,15 @@
-﻿using Warehouse.Core.Commands;
-using Warehouse.Products.Primitives;
+﻿using Warehouse.Products.Primitives;
 
 namespace Warehouse.Products.RegisteringProduct;
 
-internal class HandleRegisterProduct: ICommandHandler<RegisterProduct>
+internal static class RegisterProductHandler
 {
-    private readonly Func<Product, CancellationToken, ValueTask> addProduct;
-    private readonly Func<SKU, CancellationToken, ValueTask<bool>> productWithSKUExists;
-
-    public HandleRegisterProduct(
+    internal static async Task Handle(
         Func<Product, CancellationToken, ValueTask> addProduct,
-        Func<SKU, CancellationToken, ValueTask<bool>> productWithSKUExists
+        Func<SKU, CancellationToken, ValueTask<bool>> productWithSKUExists,
+        RegisterProduct command,
+        CancellationToken ct
     )
-    {
-        this.addProduct = addProduct;
-        this.productWithSKUExists = productWithSKUExists;
-    }
-
-    public async Task Handle(RegisterProduct command, CancellationToken ct)
     {
         var product = new Product(
             command.ProductId,

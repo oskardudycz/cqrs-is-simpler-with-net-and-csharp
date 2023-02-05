@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Warehouse.Products.Primitives;
-using static Microsoft.AspNetCore.Http.TypedResults;
 
 namespace Warehouse.Products.GettingProductDetails;
 
@@ -20,27 +16,8 @@ public record ProductDetails(
     string? Description
 );
 
-internal static class GetProductDetailsConfig
+internal static class GetProductDetailsQuery
 {
-    internal static IEndpointRouteBuilder UseGetProductDetailsEndpoint(this IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapGet("/api/products/{id:guid}", Handle);
-        return endpoints;
-    }
-
-    private static async Task<IResult> Handle(
-        IQueryable<Product> queryable,
-        Guid id,
-        CancellationToken ct
-    )
-    {
-        var query = GetProductDetails.Create(id);
-
-        var result = await queryable.Query(query, ct);
-
-        return result != null ? Ok(result) : NotFound();
-    }
-
     internal static async ValueTask<ProductDetails?> Query(
         this IQueryable<Product> products,
         GetProductDetails query,

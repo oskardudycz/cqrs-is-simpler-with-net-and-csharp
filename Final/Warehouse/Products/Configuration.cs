@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Warehouse.Core.Commands;
-using Warehouse.Core.Entities;
-using Warehouse.Core.Queries;
 using Warehouse.Products.GettingProductDetails;
-using Warehouse.Products.GettingProducts;
 using Warehouse.Products.Primitives;
 using Warehouse.Products.RegisteringProduct;
 using Warehouse.Storage;
@@ -16,12 +12,9 @@ internal static class Configuration
 {
     public static IServiceCollection AddProductServices(this IServiceCollection services)
         => services
-            .AddTransient<IQueryable<Product>>(sp => sp.GetRequiredService<WarehouseDBContext>().Set<Product>())
-            .AddCommandHandler<RegisterProduct, HandleRegisterProduct>(s =>
-            {
-                var dbContext = s.GetRequiredService<WarehouseDBContext>();
-                return new HandleRegisterProduct(dbContext.AddAndSave, dbContext.ProductWithSKUExists);
-            });
+            .AddTransient(sp =>
+                sp.GetRequiredService<WarehouseDBContext>().Set<Product>().AsNoTracking()
+            );
 
 
     public static IEndpointRouteBuilder UseProductsEndpoints(this IEndpointRouteBuilder endpoints) =>

@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
-using static Microsoft.AspNetCore.Http.TypedResults;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Warehouse.Products.GettingProducts;
 
@@ -26,30 +21,8 @@ public record ProductListItem(
     string Name
 );
 
-internal static class GetProductsConfig
+internal static class GetProductsQuery
 {
-    internal static IEndpointRouteBuilder UseGetProductsEndpoint(this IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapGet("/api/products", Handle);
-        return endpoints;
-    }
-
-    private static async Task<IResult> Handle(
-        IQueryable<Product> products,
-        [FromQuery] string? filter,
-        [FromQuery] int? page,
-        [FromQuery] int? pageSize,
-        CancellationToken ct
-    )
-    {
-        var query = GetProducts.From(filter, page, pageSize);
-
-        var result = await products.Query(query, ct);
-
-        return Ok(result);
-    }
-
-
     internal static async ValueTask<IReadOnlyList<ProductListItem>> Query(
         this IQueryable<Product> products,
         GetProducts query,

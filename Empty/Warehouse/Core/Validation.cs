@@ -33,12 +33,10 @@ public static class Validation
         [StringSyntax(StringSyntaxAttribute.Regex)]
         string pattern,
         [CallerArgumentExpression("value")] string? argumentName = null
-    )
-    {
-        return Regex.IsMatch(value.AssertNotEmpty(), pattern)
+    ) =>
+        Regex.IsMatch(value.AssertNotEmpty(), pattern)
             ? value
             : throw new ArgumentOutOfRangeException(argumentName);
-    }
 
     public static int AssertPositive(
         [NotNull] this int? value,
