@@ -2,6 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
+namespace Warehouse.Core;
+
 public static class Validation
 {
     public static Guid AssertNotEmpty(

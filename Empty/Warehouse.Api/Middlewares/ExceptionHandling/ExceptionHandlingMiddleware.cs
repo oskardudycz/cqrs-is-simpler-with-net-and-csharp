@@ -1,6 +1,5 @@
 using System.Net;
 using System.Text.Json;
-using Core.WebApi.Middlewares.ExceptionHandling;
 
 namespace Warehouse.Api.Middlewares.ExceptionHandling;
 
@@ -36,8 +35,9 @@ public class ExceptionHandlingMiddleware
         logger.LogError(exception, exception.Message);
         Console.WriteLine("ERROR:" + exception.Message + exception.StackTrace);
 
-        if(exception.InnerException != null)
-            Console.WriteLine("INNER DETAILS:" + exception.InnerException.Message + exception.InnerException.StackTrace);
+        if (exception.InnerException != null)
+            Console.WriteLine("INNER DETAILS:" + exception.InnerException.Message +
+                              exception.InnerException.StackTrace);
 
         var codeInfo = ExceptionToHttpStatusMapper.Map(exception);
 

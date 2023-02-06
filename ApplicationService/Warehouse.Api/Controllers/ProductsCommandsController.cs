@@ -2,7 +2,7 @@
 using Warehouse.Api.Requests;
 using Warehouse.Products;
 
-namespace Warehouse.Controllers;
+namespace Warehouse.Api.Controllers;
 
 [Route("api/products")]
 public class ProductsCommandsController: Controller

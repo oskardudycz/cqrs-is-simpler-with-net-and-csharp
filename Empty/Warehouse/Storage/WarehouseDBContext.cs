@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+
 //using Warehouse.Products;
 
 namespace Warehouse.Storage;
@@ -10,7 +11,6 @@ public class WarehouseDBContext: DbContext
     public WarehouseDBContext(DbContextOptions<WarehouseDBContext> options)
         : base(options)
     {
-
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,7 +44,4 @@ public class WarehouseDBContextFactory: IDesignTimeDbContextFactory<WarehouseDBC
 
         return new WarehouseDBContext(optionsBuilder.Options);
     }
-
-    public static WarehouseDBContext Create()
-        => new WarehouseDBContextFactory().CreateDbContext();
 }

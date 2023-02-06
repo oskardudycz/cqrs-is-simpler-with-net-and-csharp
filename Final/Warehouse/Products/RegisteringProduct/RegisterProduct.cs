@@ -1,4 +1,5 @@
-﻿using Warehouse.Products.Primitives;
+﻿using Warehouse.Core;
+using Warehouse.Products.Primitives;
 
 namespace Warehouse.Products.RegisteringProduct;
 

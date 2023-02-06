@@ -2,7 +2,7 @@
 using Warehouse.Api.Requests;
 using Warehouse.Products;
 
-namespace Warehouse.Controllers;
+namespace Warehouse.Api.Controllers;
 
 [Route("api/products")]
 public class ProductsQueriesController: Controller
@@ -22,7 +22,7 @@ public class ProductsQueriesController: Controller
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct)
     {
-        var product = await queryService.Handle(GetProductDetails.Create(id), ct);
+        var product = await queryService.Handle(GetProductDetails.From(id), ct);
 
         return product != null ? Ok(product) : NotFound();
     }

@@ -23,6 +23,9 @@ app.UseExceptionHandlingMiddleware()
 
 app.Run();
 
-public partial class Program
+namespace Warehouse.Api
 {
+    public partial class Program
+    {
+    }
 }

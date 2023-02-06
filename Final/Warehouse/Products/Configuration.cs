@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Warehouse.Products.GettingProductDetails;
+using Warehouse.Products.GettingProducts;
 using Warehouse.Products.Primitives;
 using Warehouse.Products.RegisteringProduct;
 using Warehouse.Storage;

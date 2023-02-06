@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
-namespace Core.WebApi.Middlewares.ExceptionHandling;
+namespace Warehouse.Api.Middlewares.ExceptionHandling;
 
 public class HttpStatusCodeInfo
 {

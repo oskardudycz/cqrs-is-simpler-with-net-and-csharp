@@ -18,7 +18,7 @@ internal static class GetProductDetailsEndpoint
                     CancellationToken ct
                 ) =>
                 {
-                    var query = GetProductDetails.Create(id);
+                    var query = GetProductDetails.From(id);
 
                     var result = await queryable.Query(query, ct);
 

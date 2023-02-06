@@ -1,14 +1,33 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Warehouse.Core.Commands;
+namespace Warehouse.Core;
 
 public interface ICommandHandler<in T>
 {
-    Task Handle(T command, CancellationToken token);
+    ValueTask Handle(T command, CancellationToken token);
+}
+
+public interface ICommandBus
+{
+    ValueTask Send<TCommand>(TCommand command, CancellationToken ct);
+}
+
+public class InMemoryCommandBus: ICommandBus
+{
+    private readonly IServiceProvider serviceProvider;
+
+    public InMemoryCommandBus(IServiceProvider serviceProvider) =>
+        this.serviceProvider = serviceProvider;
+
+    public ValueTask Send<TCommand>(TCommand command, CancellationToken ct) =>
+        serviceProvider.GetRequiredService<ICommandHandler<TCommand>>().Handle(command, ct);
 }
 
 public static class CommandHandlerConfiguration
 {
+    public static IServiceCollection AddInMemoryCommandBus(this IServiceCollection services) =>
+        services.AddScoped<ICommandBus, InMemoryCommandBus>();
+
     public static IServiceCollection AddCommandHandler<T, TCommandHandler>(
         this IServiceCollection services,
         Func<IServiceProvider, TCommandHandler>? configure = null

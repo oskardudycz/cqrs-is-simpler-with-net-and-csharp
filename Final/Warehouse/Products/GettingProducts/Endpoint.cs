@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Warehouse.Products.GettingProducts;
 using static Microsoft.AspNetCore.Http.Results;
 
-namespace Warehouse.Products.GettingProductDetails;
+namespace Warehouse.Products.GettingProducts;
 
 internal static class GetProductsEndpoint
 {

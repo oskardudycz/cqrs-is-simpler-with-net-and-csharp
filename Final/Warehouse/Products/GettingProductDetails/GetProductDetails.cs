@@ -5,7 +5,7 @@ namespace Warehouse.Products.GettingProductDetails;
 
 public record GetProductDetails(ProductId ProductId)
 {
-    public static GetProductDetails Create(Guid productId) =>
+    public static GetProductDetails From(Guid productId) =>
         new(ProductId.From(productId));
 }
 

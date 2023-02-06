@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Warehouse.Core.Entities;
+using Warehouse.Core;
 using Warehouse.Storage;
 
 namespace Warehouse.Products;
