@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
-namespace Warehouse.Core;
+namespace Warehouse.Api.Core;
 
 public static class Validation
 {
