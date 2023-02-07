@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Warehouse.Api.Core;
+using Warehouse.Api.Middlewares.ExceptionHandling;
 
 Console.WriteLine("🇸🇪 👋 Hey Swetugg! 🇸🇪 ");
 
@@ -23,6 +24,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger()
         .UseSwaggerUI();
+
+    app.UseExceptionHandlingMiddleware();
 
     // Kids, do not try this at home!
     using var scope = app.Services.CreateScope();
@@ -67,7 +70,7 @@ app.MapGet(
             Guid id,
             CancellationToken ct
         ) =>
-        await db.FindAsync<Product>(new[] { ProductId.From(id) })
+        await db.FindAsync<Product>(ProductId.From(id))
             is { } product
             ? TypedResults.Ok(
                 new ProductDetails(
@@ -91,7 +94,13 @@ app.MapGet(
         CancellationToken ct
     ) =>
     {
-        var products = db.Products.AsNoTracking();
+        page ??= 1;
+        pageSize ??= 10;
+
+        page.AssertPositive();
+        pageSize.AssertPositive();
+
+        var products = db.Set<Product>().AsNoTracking();
 
         var filteredProducts = string.IsNullOrEmpty(filter)
             ? products
@@ -101,9 +110,6 @@ app.MapGet(
                     p.Name.Contains(filter) ||
                     p.Description!.Contains(filter)
                 );
-
-        page ??= 1;
-        pageSize ??= 10;
 
         return TypedResults.Ok(
             await filteredProducts
@@ -275,8 +281,6 @@ record Product
 
 class WarehouseDBContext: DbContext
 {
-    public DbSet<Product> Products => Set<Product>();
-
     public WarehouseDBContext(DbContextOptions<WarehouseDBContext> options)
         : base(options)
     {
