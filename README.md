@@ -1,5 +1,5 @@
-# cqrs-is-simpler-with-net-and-csharp
-Repository for CQRS is simpler with .NET and C# talk
+# CQRS is simpler with .NET 7 and C# 11
+Repository with backing code for my talk.
 
 ## Read also
 -   📝 [CQRS facts and myths explained](https://event-driven.io/en/cqrs_facts_and_myths_explained/?utm_source=event_sourcing_net)
