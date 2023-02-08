@@ -1,19 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{DB50DBC4-CB42-48A9-BC9A-37E9546B481F}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		Core.Build.props = Core.Build.props
-		docker-compose.yml = docker-compose.yml
-		Dockerfile = Dockerfile
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{69AC90E1-2A1B-44AF-8E67-E30C0416D54B}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build.dotnet.yml = .github\workflows\build.dotnet.yml
-		.github\workflows\build.docker.yml = .github\workflows\build.docker.yml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Final", "Final", "{5E927C43-8A4B-4D5E-A377-7638D00A1FC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse", "Final\Warehouse\Warehouse.csproj", "{ED70BFCA-58F2-4114-A2FA-B4D85AC80DA4}"
@@ -23,14 +9,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.Api.Tests", "Final\Warehouse.Api.Tests\Warehouse.Api.Tests.csproj", "{1C3F40F8-FBD6-4D82-9942-4DD98F35F8AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Empty", "Empty", "{6EBC6A17-D1D8-4B36-A55D-E0F1E0C43880}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationService", "ApplicationService", "{44AFE231-CB31-40F6-AEE3-50DF3881B1FA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse", "ApplicationService\Warehouse\Warehouse.csproj", "{AE6EA47C-5FFA-47F9-9812-1EB4A7B36C05}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.Api", "ApplicationService\Warehouse.Api\Warehouse.Api.csproj", "{621EE4A5-4FE4-42AA-9E8C-CA649809A794}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.Api.Tests", "ApplicationService\Warehouse.Api.Tests\Warehouse.Api.Tests.csproj", "{325D2D84-9642-4B32-9B0D-617F084DCB1B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.Api", "Empty\Warehouse.Api\Warehouse.Api.csproj", "{7D93DADA-1105-4DCC-868D-23AB99D3567C}"
 EndProject
@@ -50,13 +28,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{69AC90E1-2A1B-44AF-8E67-E30C0416D54B} = {DB50DBC4-CB42-48A9-BC9A-37E9546B481F}
 		{ED70BFCA-58F2-4114-A2FA-B4D85AC80DA4} = {5E927C43-8A4B-4D5E-A377-7638D00A1FC5}
 		{1EE9783C-8F60-4E96-B03C-C1FE28BB9D2C} = {5E927C43-8A4B-4D5E-A377-7638D00A1FC5}
 		{1C3F40F8-FBD6-4D82-9942-4DD98F35F8AC} = {5E927C43-8A4B-4D5E-A377-7638D00A1FC5}
-		{AE6EA47C-5FFA-47F9-9812-1EB4A7B36C05} = {44AFE231-CB31-40F6-AEE3-50DF3881B1FA}
-		{621EE4A5-4FE4-42AA-9E8C-CA649809A794} = {44AFE231-CB31-40F6-AEE3-50DF3881B1FA}
-		{325D2D84-9642-4B32-9B0D-617F084DCB1B} = {44AFE231-CB31-40F6-AEE3-50DF3881B1FA}
 		{7D93DADA-1105-4DCC-868D-23AB99D3567C} = {6EBC6A17-D1D8-4B36-A55D-E0F1E0C43880}
 		{4F9AF79B-950F-4598-843F-A7B725229F43} = {6EBC6A17-D1D8-4B36-A55D-E0F1E0C43880}
 		{283547B2-B3D5-4246-A20A-EF05C63AC883} = {5E939E77-ABDD-4C99-B3BD-C4C73B3B108B}
@@ -76,18 +50,6 @@ Global
 		{1C3F40F8-FBD6-4D82-9942-4DD98F35F8AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C3F40F8-FBD6-4D82-9942-4DD98F35F8AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C3F40F8-FBD6-4D82-9942-4DD98F35F8AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE6EA47C-5FFA-47F9-9812-1EB4A7B36C05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE6EA47C-5FFA-47F9-9812-1EB4A7B36C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE6EA47C-5FFA-47F9-9812-1EB4A7B36C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE6EA47C-5FFA-47F9-9812-1EB4A7B36C05}.Release|Any CPU.Build.0 = Release|Any CPU
-		{621EE4A5-4FE4-42AA-9E8C-CA649809A794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{621EE4A5-4FE4-42AA-9E8C-CA649809A794}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{621EE4A5-4FE4-42AA-9E8C-CA649809A794}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{621EE4A5-4FE4-42AA-9E8C-CA649809A794}.Release|Any CPU.Build.0 = Release|Any CPU
-		{325D2D84-9642-4B32-9B0D-617F084DCB1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{325D2D84-9642-4B32-9B0D-617F084DCB1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{325D2D84-9642-4B32-9B0D-617F084DCB1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{325D2D84-9642-4B32-9B0D-617F084DCB1B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7D93DADA-1105-4DCC-868D-23AB99D3567C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7D93DADA-1105-4DCC-868D-23AB99D3567C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D93DADA-1105-4DCC-868D-23AB99D3567C}.Release|Any CPU.ActiveCfg = Release|Any CPU
