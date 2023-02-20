@@ -2,7 +2,7 @@
 
 # CQRS is simpler with .NET 7 and C# 11
 
-Watch the talk below:
+Watch the talk [below](https://www.youtube.com/watch?v=iY7LO289qnQ):
 
 <a href="https://www.youtube.com/watch?v=iY7LO289qnQ" target="_blank"><img src="https://img.youtube.com/vi/iY7LO289qnQ/0.jpg" alt="CQRS is Simpler than you think with C#11 & NET7" width="640" height="480" border="10" /></a>
 
