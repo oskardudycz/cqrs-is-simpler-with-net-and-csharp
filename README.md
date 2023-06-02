@@ -17,3 +17,5 @@ Repository with backing code for my talk. For more samples like that see [EventS
 -   📝 [CQRS is simpler than you think with .NET 6 and C# 10](https://event-driven.io/en/cqrs_is_simpler_than_you_think_with_net6/?utm_source=event_sourcing_net)
 -   📝 [How to register all CQRS handlers by convention](https://event-driven.io/en/how_to_register_all_mediatr_handlers_by_convention/?utm_source=event_sourcing_net)
 -   📝 [Notes about C# records and Nullable Reference Types](https://event-driven.io/en/notes_about_csharp_records_and_nullable_reference_types/?utm_source=event_sourcing_net)
+
+See also [Java version of those samples](https://github.com/oskardudycz/cqrs-is-simpler-with-java).
